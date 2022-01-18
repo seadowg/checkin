@@ -2,4 +2,4 @@
 
 CHECKINS_DIR=$(cat ~/.checkin)
 PROJECT_NAME=$(cat .checkin)
-zip -r --filesync "$(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
