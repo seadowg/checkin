@@ -1,5 +1,13 @@
 #!/bin/bash
 
 CHECKINS_DIR=$(cat ~/.checkin)
-PROJECT_NAME=$(cat .checkin)
-zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+
+case "$1" in
+  init)
+  echo $2 > .checkin
+  ;;
+  "")
+  PROJECT_NAME=$(cat .checkin)
+  zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+  ;;
+esac
