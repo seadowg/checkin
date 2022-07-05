@@ -1,3 +1,12 @@
 #!/bin/bash
 
-cp checkin /usr/local/bin/checkin
+case "$1" in
+  "")
+    cp checkin /usr/local/bin/checkin
+  ;;
+  *)
+    cp checkin $1
+  ;;
+esac
+
+
