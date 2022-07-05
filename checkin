@@ -1,13 +1,32 @@
 #!/bin/bash
 
-CHECKINS_DIR=$(cat ~/.checkin)
+if [ -e ~/.checkin ]; then
+  CHECKINS_DIR=$(cat ~/.checkin)
 
-case "$1" in
-  init)
-  echo $2 > .checkin
-  ;;
-  "")
-  PROJECT_NAME=$(cat .checkin)
-  zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
-  ;;
-esac
+  case "$1" in
+    init)
+      echo $2 > .checkin
+    ;;
+    "backup")
+      if [ -e .checkin ]; then
+        PROJECT_NAME=$(cat .checkin)
+        zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+      else
+        echo "No .checkin file present!"
+        exit 1
+      fi
+    ;;
+    *)
+      echo "usage: checkin <command>"
+      echo ""
+      echo "commands:"
+      echo "  init      create a .checkin file in this directory naming the project"
+      echo "  backup    creates a .zip of this project's current state in the checkin backup directory"
+  esac
+else
+  echo "checkin backup directory not configured!"
+  echo ""
+  echo "To setup a directory for checkin to store backups run:"
+  echo "  echo \"<checkin dir>\" > ~/.checkin"
+  exit 1
+fi
