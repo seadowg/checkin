@@ -4,13 +4,22 @@ if [ -e ~/.checkin ]; then
   CHECKINS_DIR=$(cat ~/.checkin)
 
   case "$1" in
-    init)
+    "init")
       echo $2 > .checkin
     ;;
     "backup")
       if [ -e .checkin ]; then
         PROJECT_NAME=$(cat .checkin)
         zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+      else
+        echo "No .checkin file present!"
+        exit 1
+      fi
+    ;;
+    "restore")
+      if [ -e .checkin ]; then
+        PROJECT_NAME=$(cat .checkin)
+        unzip -o $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip
       else
         echo "No .checkin file present!"
         exit 1
