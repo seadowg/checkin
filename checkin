@@ -29,8 +29,9 @@ if [ -e ~/.checkin ]; then
       echo "usage: checkin <command>"
       echo ""
       echo "commands:"
-      echo "  init      create a .checkin file in this directory naming the project"
-      echo "  backup    creates a .zip of this project's current state in the checkin backup directory"
+      echo "  init      create a .checkin file in this directory"
+      echo "  backup    creates a .zip of this directory's current state in the checkin backup directory"
+      echo "  restore   ovewrite the contents of this directory with the latest backup"
   esac
 else
   echo "checkin backup directory not configured!"
