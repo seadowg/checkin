@@ -10,7 +10,13 @@ if [ -e ~/.checkin ]; then
     "backup")
       if [ -e .checkin ]; then
         PROJECT_NAME=$(cat .checkin)
-        zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+
+        if [ -e .checkinignore ]; then
+          IGNORE=$(cat .checkinignore)
+          zip -r -x $(echo $IGNORE) --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+        else
+          zip -r --filesync $(echo $CHECKINS_DIR)/$(echo $PROJECT_NAME).zip .
+        fi
       else
         echo "No .checkin file present!"
         exit 1
